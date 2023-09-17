@@ -1,0 +1,79 @@
+{
+    "dogs": [
+        {
+            "name": "Sparky",
+            "speed": 10,
+            "wins": 1,
+            "losses": 2
+        },
+        {
+            "name": "Max",
+            "speed": 20,
+            "wins": 2,
+            "losses": 1
+        },
+        {
+            "name": "Fluffy",
+            "speed": 30,
+            "wins": 2,
+            "losses": 1
+        },
+        {
+            "name": "Beast",
+            "speed": 40,
+            "wins": 2,
+            "losses": 1
+        }
+    ],
+    "races": [
+        {
+            "title": "Petlanta",
+            "dogs": [
+                "Sparky",
+                "Max",
+                "Fluffy",
+                "Beast"
+            ]
+        },
+        {
+            "title": "Barky 500",
+            "dogs": [
+                "Fluffy",
+                "Beast"
+            ]
+        },
+        {
+            "title": "500m Sprint",
+            "dogs": [
+                "Max",
+                "Fluffy"
+            ]
+        }
+    ],
+    "users": [
+        {
+           "uid": "dakrid",
+           "balance": 500,
+           "wins": 5,
+           "losses": 3
+          },
+          {
+            "uid": "bob",
+            "balance": 5000,
+            "wins": 50,
+            "losses": 30
+          },
+          {
+            "uid": "jim",
+            "balance": 5,
+            "wins": 0,
+            "losses": 3
+          },
+          {
+            "uid": "marcus",
+            "balance": 5,
+            "wins": 0,
+            "losses": 3
+          }
+    ]
+}

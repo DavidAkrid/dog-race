@@ -1,0 +1,21 @@
+app:
+    router-view:
+        home:
+            login:
+                <html>
+            dashboard:
+                <html>
+                userPanel:
+                    <html>
+                RacePanel:
+                    RacesContainer:
+                        loop => RaceIcon:
+                            <html>
+                    SelectedRace:
+                        PreRaceBets:
+                            loop => Dogs:
+                                <html>
+                            BettingContainer:
+                                PlaceBet:
+                                    <html>
+                                <html>
