@@ -1,6 +1,13 @@
 <template>
     <div class="betPanel">
-        <PlaceBet :dogList="dogList" :user="user" @place-bet="onPlaceBet"/>
+        <PlaceBet 
+            :dogList="dogList" 
+            :user="user"
+            :selectedDogId = "selectedDogId"
+            ref="placeBet"
+            @dog-selected="onDogSelected"
+            @place-bet="onPlaceBet"
+        />
         <div class="division"></div>
         <div>Bets Placed:</div>
         <div class="bet">
@@ -9,7 +16,9 @@
                 <span class="cancelBet" @click="removeBet(bet.dog)">x</span>
             </div>
         </div>
-        <button @click="$emit('begin-race', this.betList)">Begin Race</button>
+        <button @click="$emit('begin-race', this.betList)">
+            Begin Race
+        </button>
     </div>
 </template>
 
@@ -23,7 +32,8 @@ export default {
     },
     props: {
         dogList: Array,
-        user: Object
+        user: Object,
+        selectedDogId: String
     },
     data() {
         return {
@@ -63,9 +73,15 @@ export default {
         },
         removeBet(dog){
             this.betList = this.betList.filter((bet)=> bet.dog !== dog)
+        },
+        onDogSelected(selectedDogId){
+            this.$emit('dog-selected', selectedDogId)
+        },
+        externalDogSelected(dogId){
+            this.$refs.placeBet.externalDogSelected(dogId)
         }
     },
-    emits: ['begin-race']
+    emits: ['dog-selected','begin-race']
 }
 </script>
 

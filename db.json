@@ -3,30 +3,22 @@
     {
       "id": "Sparky",
       "speed": 1,
-      "acceleration": 5,
-      "wins": 1,
-      "losses": 2
+      "acceleration": 5
     },
     {
       "id": "Max",
       "speed": 2,
-      "acceleration": 5,
-      "wins": 2,
-      "losses": 1
+      "acceleration": 5
     },
     {
       "id": "Fluffy",
       "speed": 3,
-      "acceleration": 5,
-      "wins": 2,
-      "losses": 1
+      "acceleration": 5
     },
     {
       "id": "Beast",
       "speed": 4,
-      "acceleration": 5,
-      "wins": 2,
-      "losses": 1
+      "acceleration": 5
     }
   ],
   "races": [
@@ -60,9 +52,9 @@
   "users": [
     {
       "id": "dakrid",
-      "balance": 1800,
+      "balance": 1700,
       "wins": 2,
-      "losses": 1
+      "losses": 2
     },
     {
       "id": "bob",

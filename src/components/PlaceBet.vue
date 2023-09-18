@@ -3,7 +3,7 @@
         <div class="division"></div>
         <form @submit="onSubmit">
             <p>Select Dog:</p>
-            <select class="dogDropdown" v-model="selectedDog" id="dropdown">
+            <select class="dogDropdown" v-model="selectedDog" id="dropdown" @change="dogSelected(selectedDog)">
                 <option :value="dog" v-for="dog in dogList" :key="dog">{{dog}}</option>
             </select>
             <p>Bet Amount:</p>
@@ -23,7 +23,8 @@ export default {
     },
     props: {
         dogList: Array,
-        user: Object
+        user: Object,
+        selectedDogId: String
     },
     methods: {
         onSubmit(e){
@@ -47,9 +48,15 @@ export default {
         },
         verifyBet(){
             return this.user.balance >= this.bet
+        },
+        externalDogSelected(dogId){
+            this.selectedDog = dogId
+        },
+        dogSelected(selectedDog){
+            this.$emit('dog-selected', this.selectedDog)
         }
     },
-    emits: ['place-bet']
+    emits: ['place-bet', 'dog-selected']
 }
 </script>
 

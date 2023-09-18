@@ -3,10 +3,24 @@
             <div>
                 <h4>Dogs:</h4>
                 <div class="raceDogsDetails">
-                    <Dog :dogData="dog" v-for="dog in dogsInRace" :key="dog.id" @dog-not-found="closeRace"/>
+                    <Dog 
+                        :dogData="dog" 
+                        v-for="dog in dogsInRace" 
+                        :key="dog.id" 
+                        :class="{'selected':dog.id === selectedDogId}"
+                        @dog-not-found="closeRace" 
+                        @dblclick="dogSelectedFromPanel(dog.id)"
+                    />
                 </div>
             </div>
-            <BettingContainer :dogList="race.dogs" :user="user" @begin-race="onBeginRace"/>
+            <BettingContainer 
+                :dogList="race.dogs" 
+                :user="user"
+                :selectedDogId="selectedDogId" 
+                ref="bettingContainer"
+                @dog-selected="dogSelectedFromDropdown"
+                @begin-race="onBeginRace"
+            />
         </div>
 </template>
 
@@ -27,7 +41,8 @@ export default {
     },
     data() {
         return {
-            dogList: []
+            dogList: [],
+            selectedDogId: null
         }
     },
     methods: {
@@ -36,9 +51,16 @@ export default {
         },
         onBeginRace(betList) {
             this.$emit('begin-race', betList)
+        },
+        dogSelectedFromPanel(dogId) {
+            this.selectedDogId = dogId
+            this.$refs.bettingContainer.externalDogSelected(dogId)
+        },
+        dogSelectedFromDropdown(selectedDogId){
+            this.selectedDogId = selectedDogId
         }
     },
-    emits: ['dog-not-found', 'begin-race']
+    emits: ['dog-not-found', 'dog-selected','begin-race']
 }
 </script>
 

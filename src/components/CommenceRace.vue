@@ -36,9 +36,7 @@ export default {
         }
     },
     created() {
-        //loop through the dogs and calculate how long it takes each dog to complete race.
         for(const dog of this.dogsInRace){
-            //console.log(dog)
             //t= d/v+v/(2a)
             dog.timeToComplete = (this.raceLength/dog.speed) + (dog.speed/(2*dog.acceleration))
         }

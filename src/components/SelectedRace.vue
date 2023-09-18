@@ -37,11 +37,6 @@ export default {
         closeRace() {
             this.$emit('close-race')
         },
-        async fetchDogs() {
-            const req = await fetch('api/dogs')
-            const dogData = await req.json();
-            return dogData
-        },
         onBeginRace(betList) {
             if(betList && betList.length){
                 //deduct bets from balance
@@ -76,14 +71,26 @@ export default {
         },
         updateUser() {
             this.$emit('update-user')
+        },
+        async updateDogs(winningDog){
+            this.dogsInRace.forEach((dog) => {
+                if(dog.id === winningDog.id){
+                    dog.wins++;
+                } else {
+                    dog.losses++;
+                }
+            })
+        },
+        async fetchDogs() {
+            const req = await fetch('api/dogs')
+            const dogData = await req.json();
+            return dogData
         }
     },
     async created() {
-        console.log('created')
         this.raceCommenced = false;
         this.dogList = await this.fetchDogs()
         this.race.dogs.forEach((dog)=> {
-            console.log('searching for ' + dog)
             const res = this.dogList.find((pup) => pup.id === dog)
             if(!res){
                 alert('ERROR: '+ this.dogID +' not found.')

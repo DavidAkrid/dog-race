@@ -2,8 +2,7 @@
     <div class="dogContainer">
         <h4>{{ dogData.id }}</h4>
         <p>Speed: {{ dogData.speed }}</p>
-        <p>Wins: {{ dogData.wins }}</p>
-        <p>Losses: {{ dogData.losses }}</p>
+        <p>Accel: {{ dogData.acceleration }}</p>
     </div>
 </template>
 
@@ -30,6 +29,16 @@ export default {
     max-height: 80px;
     padding: 5px;
     margin: 2px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.dogContainer:not(.selected):hover {
+    border: 4px groove goldenrod;
+}
+
+.selected {
+    border: 4px groove blue;
 }
 
 
