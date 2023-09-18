@@ -75,8 +75,10 @@ export default {
 .profilePic {
     height: 80px;
     width: 80px;
-    background-color: black;
-    border: 2px solid #F2AF29;
+    background-image: url("../assets/img/profile.jpg");
+    background-size: cover;
+    background-repeat: no;
+    border: 2px groove #F2AF29;
     margin: 10px;
 }
 
