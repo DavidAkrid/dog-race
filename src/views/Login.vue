@@ -1,7 +1,7 @@
 <template>
   <form class="login" @submit="onSubmit">
     <h1>User ID</h1>
-    <input type="text" class="form" placeholder="*****" v-model="uid"/>
+    <input type="text" class="form" placeholder="*****" v-model="id"/>
     <input type="submit" class="btn btn-block"/>
   </form>
 </template>
@@ -14,23 +14,22 @@ export default {
   },
   data() {
     return {
-      uid: '',
+      id: '',
     }
   },
   methods: {
     onSubmit(e){
       e.preventDefault();
 
-      if(!this.uid) {
+      if(!this.id) {
         alert('Please enter your user ID')
         return
       } 
 
-      this.$emit('submit-uid', this.uid)
+      this.$emit('submit-id', this.id)
 
-      this.uid = '';
-    },
-    //emits: ['submit-uid']
+      this.id = '';
+    }
   }
 }
 </script>

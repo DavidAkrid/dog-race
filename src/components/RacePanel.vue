@@ -1,7 +1,7 @@
 <template>
     <div class="panel">
         <RacesContainer v-if="!raceSelectedBool" :races="races" @race-selected="raceSelected"/>
-        <SelectedRace v-if="raceSelectedBool" :race="selectedRace" :user="user" @close-race="onCloseRace"/>
+        <SelectedRace v-if="raceSelectedBool" :race="selectedRace" :user="user" @close-race="onCloseRace" @update-user="$emit('update-user')"/>
     </div>
 </template>
 

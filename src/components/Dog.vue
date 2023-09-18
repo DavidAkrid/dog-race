@@ -1,6 +1,6 @@
 <template>
     <div class="dogContainer">
-        <h4>{{ dogData.name }}</h4>
+        <h4>{{ dogData.id }}</h4>
         <p>Speed: {{ dogData.speed }}</p>
         <p>Wins: {{ dogData.wins }}</p>
         <p>Losses: {{ dogData.losses }}</p>

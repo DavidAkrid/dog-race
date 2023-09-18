@@ -3,7 +3,7 @@
         <div class="divider"></div>
         <div class="userTitle">
             <h2>
-                {{ user.uid }}
+                {{ user.id }}
             </h2>
             <div class="profilePic"></div>
         </div>

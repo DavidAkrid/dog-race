@@ -4,8 +4,8 @@
         <h1>Welcome to the Races</h1>
         <div class="division bottom"></div>
         <div class="panelContainer">
-            <UserPanel :user="user" @log-out="logOutUser"/>
-            <RacePanel :user="user"/>
+            <UserPanel :user="user" @log-out="$emit('log-out')"/>
+            <RacePanel :user="user" @update-user="$emit('update-user')"/>
         </div>
     </div>
 </template>

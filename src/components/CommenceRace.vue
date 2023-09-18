@@ -3,14 +3,14 @@
         <div>Race Commenced!</div>
         <div class="raceContainer" v-for="(dog,index) in dogsInRace" :key="dog">
             <div class="track">
-                <div class="dog" :id="dog.name" :style="{'backgroundColor': getColor(index), 'animationDuration': dog.timeToComplete+'s'}">{{dog.name[0]}}</div>
+                <div class="dog" :id="dog.id" :style="{'backgroundColor': getColor(index), 'animationDuration': dog.timeToComplete+'s'}">{{dog.id[0]}}</div>
             </div>
         </div>
-        <div class="winner banner" v-if="raceConcluded">-{{ winningDog.name }} is the winner!-</div>
+        <div class="winner banner" v-if="raceConcluded">-{{ winningDog.id }} is the winner!-</div>
         <div class="division segment"></div>
         <div style="text-decoration: underline;">Bets Placed:</div>
         <div class="betContainer" v-for="bet in betList" :key="bet[0]">
-            <div :class="['bet', (raceConcluded && bet.dog === winningDog.name ? 'winner' : '')]">
+            <div :class="['bet', (raceConcluded && bet.dog === winningDog.id ? 'winner' : '')]">
                 {{ bet.dog }} at ${{ bet.amount }}
             </div>
         </div>
@@ -48,23 +48,23 @@ export default {
         this.sortedDogRace = this.dogsInRace.toSorted((a, b) => a.timeToComplete - b.timeToComplete);
         this.winningDog = this.sortedDogRace[0];
 
-        const dogElement = document.getElementById(this.winningDog.name);
+        const dogElement = document.getElementById(this.winningDog.id);
 
         if (dogElement) {
             dogElement.addEventListener('animationend', () => {
-                console.log(this.winningDog.name + " won the race!")
+                console.log(this.winningDog.id + " won the race!")
 
                 this.raceConcluded = true;
 
                 //calculate winnings
                 var winnings = 0
                 for(const bet of this.betList) {
-                    if(bet.dog === this.winningDog.name){
+                    if(bet.dog === this.winningDog.id){
                         winnings += bet.amount
                     }
                 }
 
-                console.log(winnings)
+                this.$emit('match-concluded', winnings);
             })
         }
     },
@@ -74,16 +74,11 @@ export default {
             return colors[index%colors.length]
         },
     },
-    emits: ['close-race']
+    emits: ['close-race', 'match-concluded']
 }
 </script>
 
 <style scoped>
-/* .commencementContainer{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-} */
 .division {
     margin: 40px 10px;
 }

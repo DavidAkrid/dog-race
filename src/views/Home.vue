@@ -1,6 +1,6 @@
 <template>
-    <Login v-if="!loggedIn" @submit-uid="submitUID" />
-    <Dashboard v-if="loggedIn" :user="user" @log-out="logOutUser"/>
+    <Login v-if="!loggedIn" @submit-id="submitID" />
+    <Dashboard v-if="loggedIn" :user="user" @log-out="logOutUser" @update-user="updateUser"/>
 </template>
 
 <script>
@@ -22,34 +22,29 @@ export default {
     },
     async created() {
         this.loggedIn = false
-
-        this.users = await this.fetchUsers();
     },
     methods: {
-      async fetchUsers(){
-        const req = await fetch('api/users')
+      async submitID(id){
+        const req = await fetch(`api/users/${id}`)
+        this.user = await req.json();
 
-        const userData = await req.json();
-
-        return userData
-      },
-      submitUID(uid){
-        //locate user
-        const res = this.users.find((user) => user.uid === uid)
-
-        if(!res) {
-          alert('User not found.')
-          return
-        }
-
-        this.user = res
         this.loggedIn = true;
 
-        //this.$router.push('/dashboard')
       },
       logOutUser(){
         this.loggedIn = false
         this.user={}
+      },
+      async updateUser() {
+        const req = await fetch(`api/users/${this.user.id}`, {
+          method: "PUT",
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(this.user),
+        })
+
+        req.status === 200 ? console.log('update success') : alert('error updating user info')
       }
     }
 }

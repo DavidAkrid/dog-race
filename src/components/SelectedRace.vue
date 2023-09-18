@@ -5,20 +5,18 @@
             <p class="closeRace button" @click="closeRace">X</p>
         </div>
         <div class="division"></div>
-        <PreRaceBets v-if="!raceCommenced" :user="user" :race="race" @dog-not-found="closeRace" @begin-race="onBeginRace"/>
-        <CommenceRace v-if="raceCommenced" :dogsInRace="dogsInRace" :betList="betList" :raceLength="race.distance" @close-race="closeRace"/>
+        <PreRaceBets v-if="!raceCommenced" :dogsInRace="dogsInRace" :user="user" :race="race" @dog-not-found="closeRace" @begin-race="onBeginRace"/>
+        <CommenceRace v-if="raceCommenced" :dogsInRace="dogsInRace" :betList="betList" :raceLength="race.distance" @close-race="closeRace" @match-concluded="matchConcluded"/>
     </div>
 </template>
 
 <script>
-import Dog from './Dog.vue';
 import PreRaceBets from './PreRaceBets.vue';
 import CommenceRace from './CommenceRace.vue';
 
 export default {
     name: 'SelectedRace',
     components: {
-        Dog,
         PreRaceBets,
         CommenceRace
     },
@@ -27,7 +25,8 @@ export default {
             dogList: [],
             dogsInRace: [],
             betList: [],
-            raceCommenced: Boolean
+            raceCommenced: Boolean,
+            placedBet: Boolean
         }
     },
     props: {
@@ -44,17 +43,48 @@ export default {
             return dogData
         },
         onBeginRace(betList) {
-            console.log('success!', betList)
-            this.betList = betList
+            if(betList && betList.length){
+                //deduct bets from balance
+                var totalBetAmount = 0
+                for(const bet of betList){
+                    totalBetAmount += bet.amount
+                }
+                
+                this.user.balance -= totalBetAmount
+                //update user in db
+                this.updateUser()
+                this.betList = betList
+                this.placedBet = true;
+            } else {
+                this.betList = []
+                this.placedBet = false
+            }
             this.raceCommenced = true
+        },
+        matchConcluded(winnings){
+            if(this.placedBet){
+                if(winnings > 0) {
+                    this.user.balance += winnings * 2;
+                    this.user.wins += 1  
+                } else {
+                    this.user.losses += 1
+                }
+
+                //update user in db
+                this.updateUser()
+            }
+        },
+        updateUser() {
+            this.$emit('update-user')
         }
     },
     async created() {
+        console.log('created')
         this.raceCommenced = false;
-
         this.dogList = await this.fetchDogs()
         this.race.dogs.forEach((dog)=> {
-            const res = this.dogList.find((pup) => pup.name === dog)
+            console.log('searching for ' + dog)
+            const res = this.dogList.find((pup) => pup.id === dog)
             if(!res){
                 alert('ERROR: '+ this.dogID +' not found.')
                 this.$emit('dog-not-found');
@@ -62,6 +92,7 @@ export default {
             }
             this.dogsInRace.push(res)
         })
+        console.log('done')
     },
     emits: ['close-race', 'dog-not-found']
 }

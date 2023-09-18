@@ -3,7 +3,7 @@
             <div>
                 <h4>Dogs:</h4>
                 <div class="raceDogsDetails">
-                    <Dog :dogData="dog" v-for="dog in dogsInRace" :key="dog.name" @dog-not-found="closeRace"/>
+                    <Dog :dogData="dog" v-for="dog in dogsInRace" :key="dog.id" @dog-not-found="closeRace"/>
                 </div>
             </div>
             <BettingContainer :dogList="race.dogs" :user="user" @begin-race="onBeginRace"/>
@@ -18,7 +18,8 @@ export default {
     name: 'PreRaceBets',
     props: {
         race: Object,
-        user: Object
+        user: Object,
+        dogsInRace: Array
     },
     components: {
         Dog,
@@ -26,30 +27,12 @@ export default {
     },
     data() {
         return {
-            dogList: [],
-            dogsInRace: []
+            dogList: []
         }
-    },
-    async created() {
-        this.dogList = await this.fetchDogs()
-        this.race.dogs.forEach((dog)=> {
-            const res = this.dogList.find((pup) => pup.name === dog)
-            if(!res){
-                alert('ERROR: '+ this.dogID +' not found.')
-                this.$emit('dog-not-found');
-                return
-            }
-            this.dogsInRace.push(res)
-        })
     },
     methods: {
         closeRace() {
             this.$emit('close-race')
-        },
-        async fetchDogs() {
-            const req = await fetch('api/dogs')
-            const dogData = await req.json();
-            return dogData
         },
         onBeginRace(betList) {
             this.$emit('begin-race', betList)
