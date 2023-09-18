@@ -58,7 +58,7 @@ export default {
     background-color: #272727;
     padding: 15px;
     margin: 2px;
-    min-width: 175px;
+    min-width: 200px;
     max-width: 225px;
     flex-grow: 5;
 }

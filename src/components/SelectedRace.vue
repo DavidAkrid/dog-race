@@ -6,7 +6,7 @@
         </div>
         <div class="division"></div>
         <PreRaceBets v-if="!raceCommenced" :user="user" :race="race" @dog-not-found="closeRace" @begin-race="onBeginRace"/>
-        <CommenceRace v-if="raceCommenced"/>
+        <CommenceRace v-if="raceCommenced" :dogsInRace="dogsInRace" :betList="betList" :raceLength="race.distance" @close-race="closeRace"/>
     </div>
 </template>
 
@@ -26,6 +26,7 @@ export default {
         return {
             dogList: [],
             dogsInRace: [],
+            betList: [],
             raceCommenced: Boolean
         }
     },
@@ -42,8 +43,9 @@ export default {
             const dogData = await req.json();
             return dogData
         },
-        onBeginRace() {
-            console.log('success!')
+        onBeginRace(betList) {
+            console.log('success!', betList)
+            this.betList = betList
             this.raceCommenced = true
         }
     },
@@ -111,18 +113,6 @@ h4 {
     display: flex;
     justify-content: space-around;
     max-width: none;
-}
-
-.raceDogsDetails {
-    background-color: black;
-    padding: 2px;
-    display: flex;
-    flex-wrap: wrap;
-    max-width: 250px;
-    justify-content: space-around;
-    align-content: space-around;
-    margin: 5px;
-    min-width: 250px;
 }
 
 .backdrop {

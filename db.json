@@ -2,25 +2,29 @@
     "dogs": [
         {
             "name": "Sparky",
-            "speed": 10,
+            "speed": 1,
+            "acceleration": 5,
             "wins": 1,
             "losses": 2
         },
         {
             "name": "Max",
-            "speed": 20,
+            "speed": 2,
+            "acceleration": 5,
             "wins": 2,
             "losses": 1
         },
         {
             "name": "Fluffy",
-            "speed": 30,
+            "speed": 3,
+            "acceleration": 5,
             "wins": 2,
             "losses": 1
         },
         {
             "name": "Beast",
-            "speed": 40,
+            "speed": 4,
+            "acceleration": 5,
             "wins": 2,
             "losses": 1
         }
@@ -28,6 +32,7 @@
     "races": [
         {
             "title": "Petlanta",
+            "distance": 20,
             "dogs": [
                 "Sparky",
                 "Max",
@@ -37,6 +42,7 @@
         },
         {
             "title": "Barky 500",
+            "distance": 50,
             "dogs": [
                 "Fluffy",
                 "Beast"
@@ -44,6 +50,7 @@
         },
         {
             "title": "500m Sprint",
+            "distance": 500,
             "dogs": [
                 "Max",
                 "Fluffy"

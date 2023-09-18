@@ -1,9 +1,152 @@
 <template>
-    <div>Race Commenced!</div>
+    <div class="commencementContainer">
+        <div>Race Commenced!</div>
+        <div class="raceContainer" v-for="(dog,index) in dogsInRace" :key="dog">
+            <div class="track">
+                <div class="dog" :id="dog.name" :style="{'backgroundColor': getColor(index), 'animationDuration': dog.timeToComplete+'s'}">{{dog.name[0]}}</div>
+            </div>
+        </div>
+        <div class="winner banner" v-if="raceConcluded">-{{ winningDog.name }} is the winner!-</div>
+        <div class="division segment"></div>
+        <div style="text-decoration: underline;">Bets Placed:</div>
+        <div class="betContainer" v-for="bet in betList" :key="bet[0]">
+            <div :class="['bet', (raceConcluded && bet.dog === winningDog.name ? 'winner' : '')]">
+                {{ bet.dog }} at ${{ bet.amount }}
+            </div>
+        </div>
+        <div class="buttonContainer" style="width: 100%">
+            <button @click="$emit('close-race')">Return</button>
+        </div>
+    </div>
 </template>
 
 <script>
 export default {
-    name: 'CommenceRace'
+    name: 'CommenceRace',
+    props: {
+        dogsInRace: Array,
+        betList: Array,
+        raceLength: Number
+    },
+    data () {
+        return {
+            raceConcluded : false,
+            sortedDogRace : [],
+            winningDog: {}
+        }
+    },
+    created() {
+        //loop through the dogs and calculate how long it takes each dog to complete race.
+        for(const dog of this.dogsInRace){
+            //console.log(dog)
+            //t= d/v+v/(2a)
+            dog.timeToComplete = (this.raceLength/dog.speed) + (dog.speed/(2*dog.acceleration))
+        }
+    },
+    mounted() {
+        //find the fastest dog and display the race report when they finish
+        this.sortedDogRace = this.dogsInRace.toSorted((a, b) => a.timeToComplete - b.timeToComplete);
+        this.winningDog = this.sortedDogRace[0];
+
+        const dogElement = document.getElementById(this.winningDog.name);
+
+        if (dogElement) {
+            dogElement.addEventListener('animationend', () => {
+                console.log(this.winningDog.name + " won the race!")
+
+                this.raceConcluded = true;
+
+                //calculate winnings
+                var winnings = 0
+                for(const bet of this.betList) {
+                    if(bet.dog === this.winningDog.name){
+                        winnings += bet.amount
+                    }
+                }
+
+                console.log(winnings)
+            })
+        }
+    },
+    methods: {
+        getColor(index){
+            const colors = ['red', 'blue', 'green', 'goldenrod', 'pink', 'purple', 'orange']
+            return colors[index%colors.length]
+        },
+    },
+    emits: ['close-race']
 }
 </script>
+
+<style scoped>
+/* .commencementContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+} */
+.division {
+    margin: 40px 10px;
+}
+
+.segment {
+    border: 2px solid #64522d;
+    margin: 10px;
+}
+
+.banner {
+    font-size: xx-large;
+}
+
+.betContainer {
+    color: gold;
+    display: inline-flex;
+}
+
+.bet {
+    margin: 5px;
+}
+
+.winner {
+    color: green;
+}
+
+.loser {
+    color: red;
+}
+
+.raceContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+    margin-top: 30px;
+}
+
+.track {
+    width: 100%;
+    height: 4px;
+    background-color: #aa9b7d;
+}
+
+.dog {
+    font-weight: bold;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    top: -8px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    animation: moveRight linear;
+    animation-fill-mode: forwards;
+}
+
+@keyframes moveRight {
+    0% {
+        left: 0;
+    }
+    100% {
+        left: 97%;
+    }
+}
+</style>

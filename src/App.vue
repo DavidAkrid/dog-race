@@ -3,11 +3,13 @@
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
   </nav> -->
-  <header>
-    <h1>The Dog Race</h1>
-  </header>
-  <router-view/>
-  <footer>Made by David Akridge</footer>
+  <div class="appContainer">
+    <header>
+      <h1>The Dog Race</h1>
+    </header>
+    <router-view/>
+    <footer>Made by David Akridge</footer>
+  </div>
 </template>
 
 <script>
@@ -28,6 +30,11 @@ html {
   background-color: #222222;
 }
 
+.appContainer{
+  display:flex;
+  flex-direction: column;
+}
+
 header h1 {
   font-weight: bold;
   font-size: 100px;
@@ -35,6 +42,7 @@ header h1 {
   color: #F2AF29;
   text-shadow: 10px 5px 5px black;
   text-decoration:underline;
+  min-width: 700px;
 }
 
 footer {

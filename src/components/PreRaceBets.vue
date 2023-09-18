@@ -6,7 +6,7 @@
                     <Dog :dogData="dog" v-for="dog in dogsInRace" :key="dog.name" @dog-not-found="closeRace"/>
                 </div>
             </div>
-            <BettingContainer :dogList="race.dogs" :user="user" @begin-race="$emit('begin-race')"/>
+            <BettingContainer :dogList="race.dogs" :user="user" @begin-race="onBeginRace"/>
         </div>
 </template>
 
@@ -50,6 +50,9 @@ export default {
             const req = await fetch('api/dogs')
             const dogData = await req.json();
             return dogData
+        },
+        onBeginRace(betList) {
+            this.$emit('begin-race', betList)
         }
     },
     emits: ['dog-not-found', 'begin-race']
@@ -60,6 +63,7 @@ export default {
 .selectedRaceContainer {
     margin: 10px;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-around;
     max-width: none;
 }

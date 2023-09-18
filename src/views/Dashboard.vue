@@ -50,7 +50,6 @@ export default {
 .panelContainer {
     display: flex;
     justify-content: space-evenly;
-    min-width: 400px;
 }
 
 h1 {

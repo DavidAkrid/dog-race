@@ -9,7 +9,7 @@
                 <span class="cancelBet" @click="removeBet(bet.dog)">x</span>
             </div>
         </div>
-        <button @click="$emit('begin-race')">Begin Race</button>
+        <button @click="$emit('begin-race', this.betList)">Begin Race</button>
     </div>
 </template>
 
@@ -76,7 +76,7 @@ export default {
     border-radius: 5px;
     padding: 10px;
     width: 175px;
-    min-width: 175px;
+    /* min-width: 175px; */
 }
 
 .bet {
