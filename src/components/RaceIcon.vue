@@ -30,11 +30,17 @@ export default {
 <style scoped>
 .race{
     background-color: black;
-    border: 4px groove #F2AF29;
+    border: 4px groove gold;
     border-radius: 5px;
     margin: 10px;
     padding: 10px;
     max-width: 120px;
+    user-select: none;
+    cursor: pointer;
+}
+
+.race:hover {
+    border: 4px groove goldenrod;
 }
 
 h4 {

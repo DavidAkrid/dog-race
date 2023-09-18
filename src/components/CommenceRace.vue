@@ -38,7 +38,10 @@ export default {
     created() {
         for(const dog of this.dogsInRace){
             //t= d/v+v/(2a)
-            dog.timeToComplete = (this.raceLength/dog.speed) + (dog.speed/(2*dog.acceleration))
+            
+            var variedSpeed= dog.speed * (0.5 + Math.random())
+            console.log(dog.speed, variedSpeed)
+            dog.timeToComplete = (this.raceLength/variedSpeed) + (variedSpeed/(2*dog.acceleration))
         }
     },
     mounted() {
@@ -70,7 +73,7 @@ export default {
         getColor(index){
             const colors = ['red', 'blue', 'green', 'goldenrod', 'pink', 'purple', 'orange']
             return colors[index%colors.length]
-        },
+        }
     },
     emits: ['close-race', 'match-concluded']
 }

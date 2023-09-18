@@ -101,7 +101,7 @@ export default {
         })
         console.log('done')
     },
-    emits: ['close-race', 'dog-not-found']
+    emits: ['close-race', 'dog-not-found', 'update-user']
 }
 </script>
 
