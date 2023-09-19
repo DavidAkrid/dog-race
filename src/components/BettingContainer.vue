@@ -1,5 +1,6 @@
 <template>
     <div class="betPanel">
+        <!-- allows user to place the bet -->
         <PlaceBet 
             :dogList="dogList" 
             :user="user"
@@ -9,6 +10,7 @@
             @place-bet="onPlaceBet"
         />
         <div class="division"></div>
+        <!-- allows user to view bets placed and cancel them prior to beginning the race -->
         <div>Bets Placed:</div>
         <div class="bet">
             <div  v-for="bet in betList" :key="bet[0]">

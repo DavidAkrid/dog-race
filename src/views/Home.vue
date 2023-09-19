@@ -1,4 +1,5 @@
 <template>
+    <!-- display login page until a user is logged in, then show the dashboard -->
     <Login v-if="!loggedIn" @submit-id="submitID" />
     <Dashboard v-if="loggedIn" :user="user" @log-out="logOutUser" @update-user="updateUser"/>
 </template>

@@ -52,9 +52,9 @@
   "users": [
     {
       "id": "dakrid",
-      "balance": 500,
-      "wins": 4,
-      "losses": 4
+      "balance": 5500,
+      "wins": 9,
+      "losses": 5
     },
     {
       "id": "bob",

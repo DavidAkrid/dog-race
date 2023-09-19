@@ -4,7 +4,7 @@
         <h1>Welcome to the Races</h1>
         <div class="division bottom"></div>
         <div class="panelContainer">
-            <UserPanel :user="user" @log-out="$emit('log-out')"/>
+            <UserPanel :user="user" @log-out="$emit('log-out')" @update-user="$emit('update-user')"/>
             <RacePanel :user="user" @update-user="$emit('update-user')"/>
         </div>
     </div>

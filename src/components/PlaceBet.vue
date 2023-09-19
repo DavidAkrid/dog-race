@@ -30,6 +30,7 @@ export default {
         onSubmit(e){
             e.preventDefault();
 
+            //basic verification to ensure dog is selected, bet is selected, and bet is valid based on balance
             if(!this.selectedDog){
                 alert('Please enter a valid dog to bet on!');
                 return
@@ -49,9 +50,11 @@ export default {
         verifyBet(){
             return this.user.balance >= this.bet
         },
+        //if the user selects the dog via the dog panel
         externalDogSelected(dogId){
             this.selectedDog = dogId
         },
+        //if dog is selected via dropdown
         dogSelected(selectedDog){
             this.$emit('dog-selected', this.selectedDog)
         }

@@ -5,7 +5,9 @@
             <p class="closeRace button" @click="closeRace">X</p>
         </div>
         <div class="division"></div>
+        <!-- this screen allows users to place bets on dogs prior to the race commencing -->
         <PreRaceBets v-if="!raceCommenced" :dogsInRace="dogsInRace" :user="user" :race="race" @dog-not-found="closeRace" @begin-race="onBeginRace"/>
+        <!-- visualizes the race and displays the results -->
         <CommenceRace v-if="raceCommenced" :dogsInRace="dogsInRace" :betList="betList" :raceLength="race.distance" @close-race="closeRace" @match-concluded="matchConcluded"/>
     </div>
 </template>

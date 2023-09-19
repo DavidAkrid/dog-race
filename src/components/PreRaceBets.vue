@@ -1,5 +1,6 @@
 <template>
     <div class="selectedRaceContainer">
+            <!-- present the dogs pre-race. This will display their stats and allow users to select the dog to be on -->
             <div>
                 <h4>Dogs:</h4>
                 <div class="raceDogsDetails">
@@ -13,6 +14,7 @@
                     />
                 </div>
             </div>
+            <!-- allows user to place the bet and begin race -->
             <BettingContainer 
                 :dogList="race.dogs" 
                 :user="user"

@@ -37,10 +37,10 @@ export default {
     },
     created() {
         for(const dog of this.dogsInRace){
-            //t= d/v+v/(2a)
             
+            //create some variance in the dogs speed so each race is unique
             var variedSpeed= dog.speed * (0.5 + Math.random())
-            console.log(dog.speed, variedSpeed)
+            //t= d/v+v/(2a)
             dog.timeToComplete = (this.raceLength/variedSpeed) + (variedSpeed/(2*dog.acceleration))
         }
     },
@@ -53,7 +53,7 @@ export default {
 
         if (dogElement) {
             dogElement.addEventListener('animationend', () => {
-                console.log(this.winningDog.id + " won the race!")
+                //when the winning dog wins the race, conclude the race, calculate winnings and emit upwards
 
                 this.raceConcluded = true;
 

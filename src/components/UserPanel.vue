@@ -8,13 +8,13 @@
             <div class="profilePic"></div>
         </div>
         <div class="divider"></div>
-        <h4>
+        <h4 class="secretButton" @dblclick="displayAddFunds">
             Balance: 
             <span class="data">
                 $ {{user.balance }}
             </span>
         </h4>
-        <h4>
+        <h4 >
             Wins: 
             <span class="data">
                 {{ user.wins }}
@@ -27,6 +27,9 @@
             </span>
         </h4>
         <div class="divider"></div>
+        <div v-if="showAddFunds" @click="addFundsClick" class="addFundsButton">
+            <button class="funds">Add Funds</button>
+        </div>
         <div @click="logOutClick" class="logoutButton">
             <button>Log out</button>
         </div>
@@ -39,9 +42,21 @@ export default {
     props: {
         user: Object
     },
+    data() {
+        return {
+            showAddFunds: false
+        }
+    },
     methods: {
         logOutClick(){
             this.$emit('log-out')
+        },
+        displayAddFunds(){
+            this.showAddFunds = !this.showAddFunds
+        },
+        addFundsClick() {
+            this.user.balance += 500
+            this.$emit('update-user')
         }
     }
 }
@@ -52,7 +67,7 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    max-height: 275px;
+    max-height: 325px;
     border: 5px groove rgb(106, 106, 106);
     border-radius: 5px;
     background-color: #272727;
@@ -87,10 +102,25 @@ export default {
     margin-left: 5px;
 }
 
-.logoutButton {
+.logoutButton, .addFundsButton {
     display: flex;
     width: 100%;
     justify-content: center;
+}
+
+.secretButton {
+    cursor: pointer;
+    user-select: none;
+}
+
+.funds {
+    background: green;
+    border: 2px solid darkgreen;
+    text-shadow: none;
+}
+
+.funds:hover {
+    background: lightgreen;
 }
 
 button {

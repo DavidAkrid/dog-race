@@ -1,6 +1,8 @@
 <template>
     <div class="panel">
+        <!-- shows the races available for betting on -->
         <RacesContainer v-if="!raceSelectedBool" :races="races" @race-selected="raceSelected"/>
+        <!-- once a race is selected, we engage with the selected race itself. betting and commencing race -->
         <SelectedRace v-if="raceSelectedBool" :race="selectedRace" :user="user" @close-race="onCloseRace" @update-user="$emit('update-user')"/>
     </div>
 </template>
@@ -58,5 +60,6 @@ export default {
     background-color: #272727;
     flex-grow: 1;
     margin: 2px;
+    max-width: 600px;
 }
 </style>

@@ -39,7 +39,7 @@ h3 {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    margin: 10px;
+    margin: 20px auto;
     border: 5px groove rgb(106, 106, 106);
     border-radius: 5px;
     background-color: #323232;
